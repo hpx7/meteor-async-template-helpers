@@ -18,7 +18,7 @@ The `RegisterAsyncHelper` takes three parameters: the template on which the help
 ## Example
 
 ```javascript
-RegisterHelper(Template.search, 'searchResults', function (callback) {
+RegisterAsyncHelper(Template.search, 'searchResults', function (callback) {
   var query = 'someReactiveValue';
   Meteor.call('getSearchResults', query, function (err, result) {
     if (err)

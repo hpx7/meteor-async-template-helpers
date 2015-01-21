@@ -1,7 +1,7 @@
 Package.describe({
   name: 'hpx7:async-template-helpers',
   summary: 'Use asynchronous functions inside your template helpers',
-  version: '0.0.1',
+  version: '0.0.2',
   git: 'https://github.com/hpx7/meteor-async-template-helpers.git',
   documentation: 'README.md'
 });
