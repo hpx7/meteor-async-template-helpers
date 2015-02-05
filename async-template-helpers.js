@@ -1,17 +1,21 @@
-RegisterAsyncHelper = function (template, helperName, fn) {
-  var helper = {};
-  helper[helperName] = function () {
-    return Template.instance()[helperName].get();
-  };
-  template.helpers(helper);
+RegisterAsyncHelper = function (options, fn) {
+  var template = options.template, helperName = options.helperName, shared = options.shared;
 
-  template.created = function () {
-    var self = this;
-    self[helperName] = new ReactiveVar();
-    self.autorun(function () {
-      fn(function (value) {
-        self[helperName].set(value);
+  var value = new ReactiveVar();
+
+  var setupAutorun = function () {
+    Template.instance().autorun(function () {
+      fn(function (result) {
+        value.set(result);
       });
     });
+  }
+
+  template.created = shared ? _.once(setupAutorun) : setupAutorun;
+
+  var helper = {};
+  helper[helperName] = function () {
+    return value.get();
   };
+  template.helpers(helper);
 };
